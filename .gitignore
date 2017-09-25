@@ -40,3 +40,6 @@ fabric.properties
 
 *.properties
 web-fragment.xml
+
+dist
+node_modules
