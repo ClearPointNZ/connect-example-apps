@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import './css/index.css';
 
-import { Hello } from './components/Hello';
+import { SlackMessage } from './components/SlackMessage';
 
 ReactDOM.render(
-	<Hello compiler='TypeScript' framework='React'/>,
+	<SlackMessage/>,
 	document.getElementById('app')
 );

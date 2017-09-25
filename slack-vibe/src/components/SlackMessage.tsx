@@ -1,11 +1,43 @@
 import * as React from "react";
+import { getSlackSentiment } from '../api/SlackSentimentAPI';
 
-export interface HelloProps { compiler: string; framework: string; }
+interface slackSentiment {
+	channel: string
+	messageCount: number
+	sentiment: number
+}
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the 'undefined' type.
-export class Hello extends React.Component<HelloProps, undefined> {
+export class SlackMessage extends React.Component<any, any> {
+
 	render() {
-		return (<h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>);
+		return (
+			<div>
+				<div className='container' style={{'textAlign': 'center'}}>
+					<h3>Slack Vibe</h3>
+					<table>
+						<tbody>
+						<tr>
+							<th>Channel</th>
+							<th>Message</th>
+							<th>Sentiment</th>
+						</tr>
+						{getSlackSentiment.map((m: slackSentiment) => (
+							<tr key={m.channel}>
+								<td>
+									{m.channel}
+								</td>
+								<td>
+									{m.messageCount}
+								</td>
+								<td>
+									{m.sentiment}
+								</td>
+							</tr>
+						))}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		);
 	}
 }
