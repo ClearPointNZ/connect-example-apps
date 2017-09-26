@@ -17,7 +17,12 @@
 		<dependency>
 			<groupId>cd.connect.samples.slackapp</groupId>
 			<artifactId>slack-message-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>cd.connect.samples.slackapp</groupId>
+			<artifactId>slack-sentiment-analyser-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
