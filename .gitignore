@@ -46,3 +46,4 @@ slack-vibe/node_modules/
 slack-e2e-api-tests/src/test/resources/env.yml
 dist
 node_modules
+*/target/

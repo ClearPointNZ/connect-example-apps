@@ -62,28 +62,28 @@ public class MyStepdefs {
 	}
 
 	@Given("^I call get messages api for user id (.*) from date (.*) to date (.*)$")
-	public void iCallGetMessagesApiForUserUser_idFromTo(String userId, BigDecimal fromDate, BigDecimal toDate) throws Throwable {
+	public void iCallGetMessagesApi(String userId, BigDecimal fromDate, BigDecimal toDate) throws Throwable {
 
 		messagelist = apiService.messagesApi().gETMessages(userId, fromDate, toDate);
 
 }
 
 	@Then("^I should get a list of messages$")
-	public void iShouldGetAListOfMessages() throws Throwable {
+	public void getListOfMessages() throws Throwable {
 
 		assertThat(messagelist).isNotEmpty();
 
 	}
 
 	@Given("^a (.*) is sent to a slack channel$")
-	public void aTextIsSentToSlackApi(String text) throws Throwable {
+	public void msgSentToSlackApi(String text) throws Throwable {
 
 		slackList = slackApiHelper.slackMessagePost(text);
 
 	}
 
 	@Then("^a valid response is received with (.*)$")
-	public void theResponseContainsMessage(int status) throws Throwable {
+	public void responseMessage(int status) throws Throwable {
 
 		assertThat(slackList.toString()).contains("ok");
 		assertThat(slackList.getStatus()).isEqualTo(status);
@@ -91,7 +91,7 @@ public class MyStepdefs {
 	}
 
 	@Then("^the message count of slack sentiment analyser api should be increased by one$")
-	public void theMessageCountIncreasedToOne() throws Throwable {
+	public void messageCountIncrease() throws Throwable {
 
 		assertThat(getCurrentMessageCount()).isEqualTo(previousCount.add(new BigDecimal(1)));
 
@@ -105,7 +105,7 @@ public class MyStepdefs {
 	}
 
 	@When("^I call slack sentiment analyser api$")
-	public void iCallSlackSentimentAnalyserApi() throws Throwable {
+	public void getSlackSentimentAnalyserApi() throws Throwable {
 
 		sentimentSummary = apiService.sentimentApi().gETSentiment();
 
