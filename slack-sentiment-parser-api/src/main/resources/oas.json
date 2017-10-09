@@ -1,0 +1,69 @@
+{
+  "swagger": "2.0",
+  "info": {
+	"version": "",
+	"title": "slack-sentiment-parser",
+	"description": ""
+  },
+  "host": "slack-sentiment-parser",
+  "basePath": "/data",
+  "schemes": [
+	"http"
+  ],
+  "paths": {
+	"/sentimentScore": {
+	  "post": {
+		"operationId": "POST_sentiment_score",
+		"summary": "post sentiment score",
+		"parameters": [
+		  {
+			"name": "messages",
+			"in": "body",
+			"required": true,
+			"schema": {
+			  "$ref": "#/definitions/slackMessages"
+			}
+		  }
+		],
+		"consumes": [
+		  "application/json"
+		],
+		"produces": [
+		  "application/json"
+		],
+		"responses": {
+		  "200": {
+			"description": "",
+			"schema": {
+			  "$ref": "#/definitions/sentimentScore"
+			}
+		  }
+		}
+	  }
+	}
+  },
+  "definitions": {
+	"slackMessages": {
+	  "title": "SlackMessages",
+	  "type": "object",
+	  "properties": {
+		"messages": {
+		  "type": "array",
+		  "items": {
+			"type": "string"
+		  }
+		}
+	  }
+	},
+	"sentimentScore": {
+	  "title": "SentimentScore",
+	  "type": "object",
+	  "properties": {
+		"score": {
+		  "type": "number",
+		  "format": "double"
+		}
+	  }
+	}
+  }
+}

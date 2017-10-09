@@ -1,0 +1,31 @@
+<Configuration packages="com.globaldairytrade.common.util" verbose="true">
+
+	<Appenders>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout pattern="%-5p %d [%t] %c: %m%n"/>
+		</Console>
+	</Appenders>
+
+	<!-- You can set custom log levels per-package here -->
+	<Loggers>
+
+		<AsyncLogger name="com" level="info"/>
+		<AsyncLogger name="net" level="info"/>
+		<AsyncLogger name="org" level="info"/>
+		<AsyncLogger name="httpclient" level="info"/>
+		<AsyncLogger name="nz.ac.auckland.war" level="info"/>
+
+		<AsyncLogger name="org.springframework.beans.factory" level="warn"/>
+
+		<!-- this controls whether each HTTP request is logged (very verbose) -->
+		<AsyncLogger name="jersey-logging" level="trace"/>
+		<AsyncLogger name="com.globaldairytrade" level="debug"/>
+		<AsyncLogger name="cd.connect" level="debug"/>
+		
+		<AsyncRoot level="error">
+			<AppenderRef ref="STDOUT"/>
+		</AsyncRoot>
+
+	</Loggers>
+</Configuration>
+

@@ -12,4 +12,8 @@ public class SlackMessage {
     public Channel getChannel() {
         return channel;
     }
+
+	public String getMessageContent() {
+		return messageContent;
+	}
 }
