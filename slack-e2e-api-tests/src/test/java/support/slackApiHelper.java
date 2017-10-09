@@ -1,32 +1,38 @@
 package support;
 
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.json.simple.JSONObject;
+import cd.connect.jersey.client.JaxrsClientManager;
+import cd.connect.spring.jersey.log.JerseyFilteringConfiguration;
+import org.glassfish.jersey.client.proxy.WebResourceFactory;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 @SuppressWarnings("unchecked")
 public class SlackApiHelper {
+	private Client client;
+	private SlackApi slackApi;
 
-	private Client client = ClientBuilder.newClient(new ClientConfig().register(LoggingFilter.class));
-	private WebTarget webTarget = client.target(UriBuilder.fromPath(System.getProperty("slack.api.postMessage")).build());
+	public SlackApiHelper() {
+		JerseyFilteringConfiguration filtering = new JerseyFilteringConfiguration();
+		filtering.init();
 
-	public Response slackMessagePost(String text) {
+		client = new JaxrsClientManager(filtering).getClient();
 
-		JSONObject json = new JSONObject();
-		json.put("text", text);
+		WebTarget webTarget = client.target(UriBuilder.fromPath(System.getProperty("slack.api.postMessage")).build());
+
+		slackApi = WebResourceFactory.newResource(SlackApi.class, webTarget);
+	}
+
+	public String slackMessagePost(String text) {
 
 		client = ClientBuilder.newClient();
 
 		try {
-			Response response = webTarget.request().post(Entity.entity(json,MediaType.APPLICATION_JSON));
-			System.out.println(response.readEntity(String.class));
+			String response = slackApi.postText(new SlackText(text));
+
+			System.out.printf("Slack returned `%s`", response);
 
 			return response;
 
