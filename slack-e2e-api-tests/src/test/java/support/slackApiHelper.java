@@ -27,8 +27,6 @@ public class SlackApiHelper {
 
 	public String slackMessagePost(String text) {
 
-		client = ClientBuilder.newClient();
-
 		try {
 			String response = slackApi.postText(new SlackText(text));
 
