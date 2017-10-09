@@ -41,5 +41,9 @@ fabric.properties
 *.properties
 web-fragment.xml
 
+slack-e2e-api-tests/target/
+slack-vibe/node_modules/
+slack-e2e-api-tests/src/test/resources/env.yml
 dist
 node_modules
+*/target/
