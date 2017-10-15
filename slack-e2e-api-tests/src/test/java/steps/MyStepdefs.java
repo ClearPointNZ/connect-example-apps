@@ -21,7 +21,7 @@ public class MyStepdefs {
 	private ApiService apiService;
 	private SlackApiHelper slackApiHelper;
 	private Messagelist messagelist;
-	private Response slackList;
+	private String slackList;
 	private Sentimentsummary sentimentSummary;
 	private BigDecimal previousCount = new BigDecimal(0);
 
@@ -82,11 +82,10 @@ public class MyStepdefs {
 
 	}
 
-	@Then("^a valid response is received with (.*)$")
-	public void responseMessage(int status) throws Throwable {
+	@Then("^a valid response is received$")
+	public void responseMessage() throws Throwable {
 
-		assertThat(slackList.toString()).contains("ok");
-		assertThat(slackList.getStatus()).isEqualTo(status);
+		assertThat(slackList).contains("ok");
 
 	}
 

@@ -17,8 +17,8 @@ Feature: Testing listener service
 
   Scenario Outline: Get messages sent through slack channel
 	Given a <message> is sent to a slack channel
-	Then a valid response is received with <status>
+	Then a valid response is received
 
 	Examples:
-	  | status | message                   |
-	  | 200    | Connect Slack API Testing |
+	  | message                   |
+	  | Connect Slack API Testing |
