@@ -4,45 +4,56 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>cd.connect</groupId>
+	<groupId>cd.connect.samples.slackapp</groupId>
 	<artifactId>slack-e2e-api-tests</artifactId>
 	<version>1.0</version>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
+			<groupId>cd.connect.samples.slackapp</groupId>
+			<artifactId>slack-message-reader-api</artifactId>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
+
+		<!-- connect libraries -->
 		<dependency>
 			<groupId>cd.connect.samples.slackapp</groupId>
-			<artifactId>slack-message-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>slack-message-reader-api</artifactId>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>cd.connect.samples.slackapp</groupId>
+			<artifactId>slack-sentiment-analyser-api</artifactId>
+			<version>1.1-SNAPSHOT</version>
+      </dependency>
+
+		<dependency>
+			<groupId>cd.connect.common</groupId>
+			<artifactId>connect-jersey-client</artifactId>
+			<version>[1.1, 2)</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cd.connect.composites.java</groupId>
+			<artifactId>connect-composite-log4j2</artifactId>
+			<version>[1.1, 2)</version>
+		</dependency>
+
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
 			<version>1.2.4</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
 			<version>1.2.4</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- and now jersey -->
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet-core</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<!-- jersey's json layer -->
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-multipart</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
+
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-picocontainer</artifactId>
@@ -56,35 +67,33 @@
 			<version>2.15</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>org.easytesting</groupId>
-			<artifactId>fest-assert-core</artifactId>
-			<version>2.0M10</version>
-		</dependency>
-		<!-- test dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<groupId>cd.connect.composites.java</groupId>
+			<artifactId>connect-composite-test</artifactId>
+			<version>[1.1, 2)</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 			<version>1.8</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.5.6</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.6.0</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<properties>

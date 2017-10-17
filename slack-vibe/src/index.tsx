@@ -6,5 +6,6 @@ import { SlackMessage } from './components/SlackMessage';
 
 ReactDOM.render(
 	<SlackMessage/>,
+
 	document.getElementById('app')
 );

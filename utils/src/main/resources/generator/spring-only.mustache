@@ -1,0 +1,15 @@
+package {{packageName}};
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+{{#spring}}
+	// plain resources
+	{{#sortedTypes}}
+		import {{packageName}}.{{name}};
+	{{/sortedTypes}}
+{{/spring}}
+
+@Configuration
+@Import({ {{#spring}}{{#sortedTypes}}{{name}}.class{{^-last}}, {{/-last}}{{/sortedTypes}}{{/spring}} })
+public interface {{simpleName}} {
+}

@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<groupId>cd.connect.samples.slackapp</groupId>
-	<artifactId>slack-message-reader-api</artifactId>
-	<version>1.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
 	<modelVersion>4.0.0</modelVersion>
 
-	<description>
-		This is the APi for the Slack Message Reader. It takes the oas.json file from StopLight.io
-		as a contract and generates the jax-rs server api + classes and also a client module is also generated.
-
-		A server implementing this simply needs to implement the interface.
-	</description>
+	<groupId>cd.connect.samples.slackapp</groupId>
+	<artifactId>slack-sentiment-parser-api</artifactId>
+	<version>1.1-SNAPSHOT</version>
 
 	<dependencies>
 		<!-- require for annotations -->
@@ -31,16 +24,7 @@
 			<version>[1.1, 2)</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0.1</version>
-		</dependency>
 	</dependencies>
-
-	<properties>
-		<serviceName>slackMessageReader</serviceName>
-	</properties>
 
 	<build>
 		<plugins>
@@ -56,14 +40,11 @@
 					</tiles>
 				</configuration>
 			</plugin>
-
-			<!-- this is by necessity a little clumsy and requires the attach helper next -->
 			<plugin>
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-codegen-maven-plugin</artifactId>
 				<version>2.2.3</version>
 				<dependencies>
-					<!-- this dependency implements the jersey2-api language/library from below -->
 					<dependency>
 						<groupId>cd.connect.openapi</groupId>
 						<artifactId>connect-openapi-jersey2</artifactId>
@@ -72,7 +53,7 @@
 				</dependencies>
 				<executions>
 					<execution>
-						<id>order</id>
+						<id>slack-sentiment-parser-api</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
@@ -85,8 +66,8 @@
 							<language>jersey2-api</language>
 							<library>jersey2-api</library>
 							<configOptions>
-								<serviceName>${serviceName}</serviceName>
-								<serviceAddress>http://${serviceName}:8080/data</serviceAddress>
+								<serviceName>slackSentimentParser</serviceName>
+								<serviceAddress>http://slack-sentiment-parser:8091/data</serviceAddress>
 							</configOptions>
 						</configuration>
 					</execution>

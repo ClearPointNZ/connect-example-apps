@@ -1,18 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>cd.connect.sample-app</groupId>
-  <artifactId>sample-apps</artifactId>
-  <packaging>pom</packaging>
-  <version>1.1-SNAPSHOT</version>
-
-  <modules>
-<module>slack-message-reader</module>
-<module>slack-message-reader-api</module>
-<!--<module>slacklistener</module>-->
-<module>slack-sentiment-analyser-api</module>
-<module>slack-sentiment-analyser</module>
-<module>slack-e2e-api-tests</module>
-  </modules>
-
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cd.connect.sample-app</groupId>
+	<artifactId>sample-apps</artifactId>
+	<packaging>pom</packaging>
+	<version>1.1-SNAPSHOT</version>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	<modules>
+		<module>slack-message-reader</module>
+		<module>slack-message-reader-api</module>
+		<module>slacklistener</module>
+		<module>slack-sentiment-analyser-api</module>
+		<module>slack-sentiment-analyser</module>
+		<module>slack-sentiment-parser-api</module>
+		<module>slack-sentiment-parser</module>
+		<module>slack-e2e-api-tests</module>
+		<module>utils</module>
+	</modules>
 </project>

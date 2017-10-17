@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<groupId>cd.connect.samples.slackapp</groupId>
-	<artifactId>slack-message-app</artifactId>
+	<artifactId>slack-message-reader</artifactId>
 	<version>1.1-SNAPSHOT</version>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>cd.connect.samples.slackapp</groupId>
-			<artifactId>slack-message-api</artifactId>
+			<artifactId>slack-message-reader-api</artifactId>
 			<version>1.1-SNAPSHOT</version>
 		</dependency>
 
@@ -56,9 +56,16 @@
 			</plugin>
 
 			<plugin>
-				<groupId>com.bluetrainsoftware.maven</groupId>
-				<artifactId>gen-code-scanner</artifactId>
+				<groupId>cd.connect.common</groupId>
+				<artifactId>connect-gen-code-scanner</artifactId>
 				<version>1.2</version>
+				<dependencies>
+					<dependency>
+						<groupId>cd.connect.samples.slackapp</groupId>
+						<artifactId>utils</artifactId>
+						<version>1.1-SNAPSHOT</version>
+					</dependency>
+				</dependencies>
 				<executions>
 					<execution>
 						<id>default</id>

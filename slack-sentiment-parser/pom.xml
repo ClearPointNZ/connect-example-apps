@@ -5,25 +5,23 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cd.connect.samples.slackapp</groupId>
-	<artifactId>slack-sentiment-analyser</artifactId>
+	<artifactId>slack-sentiment-parser</artifactId>
 	<packaging>jar</packaging>
 	<version>1.1-SNAPSHOT</version>
 
 	<properties>
 		<activemq-version>5.15.0</activemq-version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<stanford-corenlp-version>3.8.0</stanford-corenlp-version>
 	</properties>
-
 	<dependencies>
-		<dependency>
-			<groupId>cd.connect.samples.slackapp</groupId>
-			<artifactId>slack-sentiment-analyser-api</artifactId>
-			<version>1.1-SNAPSHOT</version>
-		</dependency>
 		<dependency>
 			<groupId>cd.connect.samples.slackapp</groupId>
 			<artifactId>slack-sentiment-parser-api</artifactId>
 			<version>1.1-SNAPSHOT</version>
 		</dependency>
+
 		<dependency>
 			<groupId>cd.connect.composites.java</groupId>
 			<artifactId>connect-composite-springwebapp</artifactId>
@@ -36,9 +34,15 @@
 			<version>${activemq-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cd.connect.common</groupId>
-			<artifactId>connect-jersey-client</artifactId>
-			<version>[1.1, 2)</version>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>${stanford-corenlp-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>${stanford-corenlp-version}</version>
+			<classifier>models</classifier>
 		</dependency>
 	</dependencies>
 
@@ -78,7 +82,7 @@
 						<configuration>
 							<scanner>
 								<packages>
-									<package>cd.connect.samples.slackapp-r=spring: dao, security</package>
+									<package>cd.connect.samples.slackapp-r=spring: service</package>
 									<package>cd.connect.samples.slackapp.rest=spring/@Singleton</package>
 									<package>cd.connect.samples.slackapp.rest-r=jerseyuser</package>
 								</packages>
