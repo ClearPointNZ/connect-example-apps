@@ -1,0 +1,31 @@
+apiVersion: apps/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: slacklistener-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: slacklistener
+    spec:
+      containers:
+      - name: slacklistener
+        image: slacklistener:latest
+        imagePullPolicy: IfNotPresent
+        command:
+          - java
+          - -Xms128m
+          - -Xmx768m
+          - -jar
+          - /usr/share/slacklistener/app.jar
+          - -P/etc/java-config/slack-listener.properties
+        volumeMounts:
+        - mountPath: /etc/java-config
+          name: java-config
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: sample-app-config
+        name: java-config
+

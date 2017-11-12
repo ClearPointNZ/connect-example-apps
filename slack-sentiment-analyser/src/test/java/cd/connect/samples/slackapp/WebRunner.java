@@ -1,7 +1,7 @@
 package cd.connect.samples.slackapp;
 
 import bathe.BatheBooter;
-import nz.ac.auckland.war.WebAppRunner;
+import cd.connect.war.WebAppRunner;
 import org.junit.Test;
 
 import java.io.File;

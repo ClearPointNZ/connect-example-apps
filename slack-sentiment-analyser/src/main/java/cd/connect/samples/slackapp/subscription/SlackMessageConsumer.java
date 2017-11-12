@@ -7,12 +7,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.stickycode.stereotype.configured.PostConfigured;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.jms.*;
 import java.io.IOException;
 
 public class SlackMessageConsumer implements MessageListener {
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Inject
     SentimentDao sentimentDao;
@@ -24,7 +28,12 @@ public class SlackMessageConsumer implements MessageListener {
 
     @PostConfigured
     public void init() throws JMSException {
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
+
+		String brokerUrl = System.getProperty("activemq.brokerurl", ActiveMQConnection.DEFAULT_BROKER_URL);
+
+		log.info("Got activemq brokerUrl=" + brokerUrl);
+
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
 
         Connection connection = connectionFactory.createConnection();
         connection.start();
