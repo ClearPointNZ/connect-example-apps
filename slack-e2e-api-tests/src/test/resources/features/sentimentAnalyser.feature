@@ -1,4 +1,3 @@
-
 Feature: Slack Sentiment Analyser
   AS a slack sentiment analyser that can monitor a given slack channel
   I WANT to be able to extract message count and sentiments from that channel

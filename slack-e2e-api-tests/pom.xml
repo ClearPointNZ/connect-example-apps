@@ -93,6 +93,12 @@
 			<version>0.6.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>RELEASE</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
