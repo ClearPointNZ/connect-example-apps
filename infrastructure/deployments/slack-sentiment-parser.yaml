@@ -1,3 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: slack-sentiment-parser
+  namespace: sample-app
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: slack-sentiment-parser
+  type: LoadBalancer
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -16,6 +30,7 @@ spec:
         imagePullPolicy: IfNotPresent
         command:
           - java
+          - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml
           - -Xms128m
           - -Xmx768m
           - -jar
@@ -27,8 +42,14 @@ spec:
         volumeMounts:
         - mountPath: /etc/java-config
           name: java-config
+        - mountPath: /etc/logs-config
+          name: logs-config
       volumes:
       - configMap:
           defaultMode: 420
-          name: sample-app-config
+          name: services-config
         name: java-config
+      - configMap:
+          defaultMode: 420
+          name: logs-config
+        name: logs-config

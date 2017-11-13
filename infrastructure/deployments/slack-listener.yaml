@@ -20,12 +20,24 @@ spec:
           - -jar
           - /usr/share/slacklistener/app.jar
           - -P/etc/java-config/slack-listener.properties
+          - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml
+        env:
+        - name: slack.authToken
+          valueFrom:
+            secretKeyRef:
+              name: slack-auth-token
+              key: slack.authtoken
         volumeMounts:
         - mountPath: /etc/java-config
           name: java-config
+        - mountPath: /etc/logs-config
+          name: logs-config
       volumes:
       - configMap:
           defaultMode: 420
-          name: sample-app-config
+          name: services-config
         name: java-config
-
+      - configMap:
+          defaultMode: 420
+          name: logs-config
+        name: logs-config
