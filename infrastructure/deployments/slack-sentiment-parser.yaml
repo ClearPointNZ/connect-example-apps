@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: slacksentimentparser
-        image: slacksentimentparser:latest
+        image: docker-registry.connect.cd/slacksentimentparser:latest
         imagePullPolicy: IfNotPresent
         command:
           - java
@@ -60,3 +60,5 @@ spec:
           defaultMode: 420
           name: logs-config
         name: logs-config
+      imagePullSecrets:
+      - name: regsecret
