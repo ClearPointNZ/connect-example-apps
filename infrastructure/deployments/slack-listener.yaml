@@ -12,7 +12,7 @@ spec:
       containers:
       - name: slacklistener
         image: docker-registry.connect.cd/slacklistener:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         command:
           - java
           - -Xms128m

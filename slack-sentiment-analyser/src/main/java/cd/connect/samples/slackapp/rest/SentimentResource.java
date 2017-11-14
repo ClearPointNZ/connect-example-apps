@@ -38,7 +38,7 @@ public class SentimentResource implements SentimentService{
             e.setMessageCount(new BigDecimal(stringListEntry.getValue().size()));
 			SlackMessages slackMessages = new SlackMessages();
 			slackMessages.setMessages(stringListEntry.getValue().stream().map(SlackMessage::getMessageContent).collect(Collectors.toList()));
-            log.info("Getting sentiment scores for slack messages: " + slackMessages);
+            log.info("Getting sentiment scores for channel: {}, slack messages: {}", e.getChannel(), slackMessages);
 			e.setSentiment(new BigDecimal(sentimentScoreService.pOSTSentimentScore(slackMessages).getScore()));
             channels.add(e);
 

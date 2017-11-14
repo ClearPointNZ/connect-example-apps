@@ -27,7 +27,7 @@ spec:
       containers:
       - name: slacksentimentparser
         image: docker-registry.connect.cd/slacksentimentparser:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         command:
           - java
           - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml

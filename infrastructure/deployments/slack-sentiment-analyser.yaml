@@ -27,7 +27,7 @@ spec:
       containers:
       - name: slacksentimentanalyser
         image: docker-registry.connect.cd/slacksentimentanalyser:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         command:
           - java
           - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml
