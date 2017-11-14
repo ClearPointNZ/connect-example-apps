@@ -21,12 +21,19 @@ spec:
           - /usr/share/slacklistener/app.jar
           - -P/etc/java-config/slack-listener.properties
           - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml
+        resources:
+          limits:
+            cpu: "0.25"
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 512Mi
         env:
-        - name: slack.authToken
+        - name: authToken
           valueFrom:
             secretKeyRef:
               name: slack-auth-token
-              key: slack.authtoken
+              key: authtoken
         volumeMounts:
         - mountPath: /etc/java-config
           name: java-config

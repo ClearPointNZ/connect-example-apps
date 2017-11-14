@@ -29,3 +29,10 @@ spec:
         - containerPort: 8161
         - containerPort: 61616
         - containerPort: 61613
+        resources:
+          limits:
+            cpu: "0.25"
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 512Mi

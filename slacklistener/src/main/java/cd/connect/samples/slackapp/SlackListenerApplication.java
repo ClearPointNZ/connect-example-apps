@@ -13,7 +13,7 @@ public class SlackListenerApplication {
 
         System.out.println("starting slack channel listener....");
         new BatheTimeWatcher().startWatching();
-		String authToken = System.getenv("slack.authToken");
+		String authToken = System.getenv("authToken");
 		SlackSession session = SlackSessionFactory.createWebSocketSlackSession(authToken);
         session.addMessagePostedListener(new MessageListener());
         session.connect();
