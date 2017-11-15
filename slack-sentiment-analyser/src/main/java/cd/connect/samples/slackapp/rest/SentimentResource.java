@@ -46,4 +46,10 @@ public class SentimentResource implements SentimentService{
         sentimentsummary.setChannels(channels);
         return sentimentsummary;
     }
+
+	@Override
+	public String deleteSentiments() {
+		sentimentDao.deleteSentiments();
+		return "OK";
+	}
 }

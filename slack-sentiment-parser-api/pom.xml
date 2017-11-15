@@ -67,7 +67,7 @@
 							<library>jersey2-api</library>
 							<configOptions>
 								<serviceName>slackSentimentParser</serviceName>
-								<serviceAddress>http://slack-sentiment-parser:8080/data</serviceAddress>
+								<serviceAddress>http://slack-sentiment-parser:8090/data</serviceAddress>
 							</configOptions>
 						</configuration>
 					</execution>

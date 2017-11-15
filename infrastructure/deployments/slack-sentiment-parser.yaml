@@ -6,8 +6,8 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 8090
+    targetPort: 8090
   selector:
     app: slack-sentiment-parser
   type: LoadBalancer
@@ -37,7 +37,7 @@ spec:
           - /usr/share/slacksentimentparser/app.jar
           - -P/etc/java-config/slack-sentiment-parser.properties
         ports:
-        - containerPort: 8080
+        - containerPort: 8090
           protocol: TCP
         resources:
           limits:
