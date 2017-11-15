@@ -16,7 +16,7 @@ spec:
         command:
           - java
           - -Xms128m
-          - -Xmx768m
+          - -Xmx200m
           - -jar
           - /usr/share/slacklistener/app.jar
           - -P/etc/java-config/slack-listener.properties
@@ -24,10 +24,10 @@ spec:
         resources:
           limits:
             cpu: "0.25"
-            memory: 512Mi
+            memory: 256Mi
           requests:
             cpu: 250m
-            memory: 512Mi
+            memory: 128Mi
         env:
         - name: authToken
           valueFrom:
