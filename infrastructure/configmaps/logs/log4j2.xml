@@ -18,7 +18,6 @@
 
 		<!-- this controls whether each HTTP request is logged (very verbose) -->
 		<AsyncLogger name="jersey-logging" level="trace"/>
-		<AsyncLogger name="com.globaldairytrade" level="debug"/>
 		<AsyncLogger name="cd.connect" level="debug"/>
 
 		<AsyncRoot level="error">

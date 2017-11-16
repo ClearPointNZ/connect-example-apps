@@ -7,6 +7,8 @@ import cd.connect.samples.slackapp.api.Sentimentsummary;
 import cd.connect.samples.slackapp.api.SlackMessages;
 import cd.connect.samples.slackapp.dao.SentimentDao;
 import cd.connect.samples.slackapp.model.SlackMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,7 +19,9 @@ import java.util.stream.Collectors;
 @Singleton
 public class SentimentResource implements SentimentService{
 
-    @Inject
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
+	@Inject
     SentimentDao sentimentDao;
 
 	@Inject
@@ -34,11 +38,18 @@ public class SentimentResource implements SentimentService{
             e.setMessageCount(new BigDecimal(stringListEntry.getValue().size()));
 			SlackMessages slackMessages = new SlackMessages();
 			slackMessages.setMessages(stringListEntry.getValue().stream().map(SlackMessage::getMessageContent).collect(Collectors.toList()));
-            e.setSentiment(new BigDecimal(sentimentScoreService.pOSTSentimentScore(slackMessages).getScore()));
+            log.info("Getting sentiment scores for channel: {}, slack messages: {}", e.getChannel(), slackMessages);
+			e.setSentiment(new BigDecimal(sentimentScoreService.pOSTSentimentScore(slackMessages).getScore()));
             channels.add(e);
 
         });
         sentimentsummary.setChannels(channels);
         return sentimentsummary;
     }
+
+	@Override
+	public String deleteSentiments() {
+		sentimentDao.deleteSentiments();
+		return "OK";
+	}
 }

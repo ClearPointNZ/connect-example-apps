@@ -20,8 +20,12 @@ public class Publisher {
     public void create(String clientId, String topicName) throws JMSException {
         this.clientId = clientId;
 
-        // create a Connection Factory
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
+		String brokerUrl = System.getProperty("activemq.brokerurl", ActiveMQConnection.DEFAULT_BROKER_URL);
+
+		log.info("Got brokerurl: " + brokerUrl);
+
+		// create a Connection Factory
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
 
         // create a Connection
         connection = connectionFactory.createConnection();

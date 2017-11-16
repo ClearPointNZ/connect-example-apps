@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: activemq
+spec:
+  ports:
+  - port: 61616
+    protocol: TCP
+    targetPort: 61616
+  selector:
+    app: activemq
+  type: NodePort
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: activemq-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: activemq
+    spec:
+      containers:
+      - name: activemq
+        image: webcenter/activemq
+        ports:
+        - containerPort: 8161
+        - containerPort: 61616
+        - containerPort: 61613
+        resources:
+          limits:
+            cpu: "0.25"
+            memory: 256Mi
+          requests:
+            cpu: 250m
+            memory: 128Mi

@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: slack-sentiment-analyser
+  namespace: sample-app
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: slack-sentiment-analyser
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: slack-sentiment-analyser
+  namespace: sample-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: slack-sentiment-analyser
+    spec:
+      containers:
+      - name: slacksentimentanalyser
+        image: docker-registry.connect.cd/slacksentimentanalyser:latest
+        imagePullPolicy: Always
+        command:
+          - java
+          - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml
+          - -Xms128m
+          - -Xmx400m
+          - -jar
+          - /usr/share/slacksentimentanalyser/app.jar
+          - -P/etc/java-config/slack-sentiment-analyser.properties
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "0.25"
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /etc/java-config
+          name: java-config
+        - mountPath: /etc/logs-config
+          name: logs-config
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: services-config
+        name: java-config
+      - configMap:
+          defaultMode: 420
+          name: logs-config
+        name: logs-config
+      imagePullSecrets:
+      - name: regsecret
+

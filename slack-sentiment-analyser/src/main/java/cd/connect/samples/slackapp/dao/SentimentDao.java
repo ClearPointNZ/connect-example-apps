@@ -26,4 +26,9 @@ public class SentimentDao {
     public Map<String, List<SlackMessage>> getSentiment() {
         return new HashMap<>(messages);
     }
+
+	public synchronized void deleteSentiments() {
+		messages.clear();
+	}
+
 }

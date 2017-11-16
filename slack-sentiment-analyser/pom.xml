@@ -40,6 +40,27 @@
 			<artifactId>connect-jersey-client</artifactId>
 			<version>[1.1, 2)</version>
 		</dependency>
+		<dependency>
+			<groupId>cd.connect.common</groupId>
+			<artifactId>connect-runnable-war</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>2.4.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -54,6 +75,7 @@
 					<filtering>false</filtering>
 					<tiles>
 						<tile>cd.connect.tiles:tile-java:[1.1, 2)</tile>
+						<tile>cd.connect.tiles:tile-runnable:1.1-SNAPSHOT</tile>
 					</tiles>
 				</configuration>
 			</plugin>
