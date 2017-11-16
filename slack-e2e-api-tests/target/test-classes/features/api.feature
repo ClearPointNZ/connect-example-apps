@@ -13,7 +13,7 @@ Feature: Testing listener service
 	Given I call get messages api for user id 6756743 from date 1505276536 to date 1505246576
 	Then I should get a list of messages
 
-  @Regression
+
   Scenario Outline: Get messages sent through slack channel
 	Given a <message> is sent to a slack channel
 	Then a valid response is received
