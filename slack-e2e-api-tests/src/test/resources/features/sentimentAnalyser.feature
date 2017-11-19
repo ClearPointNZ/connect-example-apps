@@ -3,7 +3,7 @@ Feature: Slack Sentiment Analyser
   I WANT to be able to extract message count and sentiments from that channel
   SO THAT sentiments from those channels can be analysed
 
-
+  @Regression
   Scenario: Get message count from slack sentiment analyser api
 	Given a message count is taken before sending a message to slack channel
 	When a message is sent to a slack channel
@@ -26,18 +26,13 @@ Feature: Slack Sentiment Analyser
 	  | sentimentCount |
 	  | 0              |
 
-
+  @Regression
   Scenario Outline: Get sentiment count as 4 when a very negative message is sent to a slack channel
-	Given a sad message is sent to a slack channel
+	Given I reset the counter
+	And a sad message is sent to a slack channel
 	  | message          |
 	  | That is too bad  |
 	  | That is horrible |
-	  | That is too sad  |
-	  | That is too bad  |
-	  | That is too bad  |
-	  | That is horrible |
-	  | That is too sad  |
-	  | That is too bad  |
 	When I call slack sentiment analyser api
 	Then the sentiment count of slack sentiment analyser api should be <sentimentCount>
 
@@ -45,13 +40,12 @@ Feature: Slack Sentiment Analyser
 	  | sentimentCount |
 	  | 4              |
 
-
+  @Regression
   Scenario Outline: Get sentiment count as 4 when a neutral message is sent to a slack channel
-	Given a neutral message is sent to a slack channel
-	  | message             |
-	  | Connect testing     |
-	  | Slack api testing   |
-	  | Sentiments analyser |
+	Given I reset the counter
+	And a neutral message is sent to a slack channel
+	  | message         |
+	  | I have a pen    |
 	When I call slack sentiment analyser api
 	Then the sentiment count of slack sentiment analyser api should be <sentimentCount>
 

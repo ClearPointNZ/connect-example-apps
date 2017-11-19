@@ -27,6 +27,7 @@ public class MyStepdefs {
 	private Messagelist messagelist;
 	private Response slackList;
 	private Sentimentsummary sentimentSummary;
+	private String delete;
 	private BigDecimal previousCount = new BigDecimal(0);
 
 
@@ -146,7 +147,8 @@ public class MyStepdefs {
 	@Given("^I reset the counter$")
 	public void iResetTheCounter() throws Throwable {
 
-		sentimentSummary = apiService.sentimentApi().dELETESentiment();
+		delete = apiService.sentimentApi().deleteSentiments();
+		System.out.println("deleted response is :" + delete);
 
 	}
 }
