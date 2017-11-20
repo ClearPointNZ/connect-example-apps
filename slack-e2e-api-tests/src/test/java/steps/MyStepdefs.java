@@ -2,23 +2,20 @@ package steps;
 
 import cd.connect.samples.slackapp.api.Channel;
 import cd.connect.samples.slackapp.api.Messagelist;
-import cd.connect.samples.slackapp.api.Sentimentsummary;
+import cd.connect.samples.slackapp.api.Sentiments;
 import cd.connect.service.ApiService;
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gherkin.formatter.model.DataTableRow;
 import support.SlackApiHelper;
-
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static org.fest.assertions.api.Assertions.assertThat;
 
 public class MyStepdefs {
@@ -26,8 +23,7 @@ public class MyStepdefs {
 	private SlackApiHelper slackApiHelper;
 	private Messagelist messagelist;
 	private Response slackList;
-	private Sentimentsummary sentimentSummary;
-	private String delete;
+	private Sentiments sentimentSummary;
 	private BigDecimal previousCount = new BigDecimal(0);
 
 
@@ -44,7 +40,6 @@ public class MyStepdefs {
 			return BigDecimal.valueOf(0);
 		}
 		return messageCount.get(0);
-
 
 	}
 
@@ -76,7 +71,7 @@ public class MyStepdefs {
 
 		messagelist = apiService.messagesApi().gETMessages(userId, fromDate, toDate);
 
-}
+	}
 
 	@Then("^I should get a list of messages$")
 	public void getListOfMessages() throws Throwable {
@@ -85,7 +80,7 @@ public class MyStepdefs {
 
 	}
 
-	@Given("^a (?:message|happy message|sad message|neutral message) is sent to a slack channel$")
+	@Given("^a (?:message|positive message|negative message|neutral message) is sent to a slack channel$")
 	public void msgSentToSlackApi(DataTable dataTable) throws Throwable {
 
 		for (DataTableRow row : dataTable.getGherkinRows()) {
@@ -120,7 +115,6 @@ public class MyStepdefs {
 	public void previousMessageCount() throws Throwable {
 
 		previousCount = getCurrentMessageCount();
-		System.out.println("previous count is :" + previousCount);
 
 	}
 
@@ -144,11 +138,10 @@ public class MyStepdefs {
 		slackList = slackApiHelper.slackMessagePost(text);
 	}
 
-	@Given("^I reset the counter$")
+	@Given("^I reset the sentiments counter$")
 	public void iResetTheCounter() throws Throwable {
 
-		delete = apiService.sentimentApi().deleteSentiments();
-		System.out.println("deleted response is :" + delete);
+		apiService.sentimentApi().deleteSentiments();
 
 	}
 }
