@@ -15,7 +15,7 @@ import javax.ws.rs.core.UriBuilder;
 public class SlackApiHelper {
 
 	private Client client = ClientBuilder.newClient(new ClientConfig());
-	private WebTarget webTarget = client.target(UriBuilder.fromPath(System.getProperty("slack.api.postMessage")).build());
+	private final WebTarget webTarget = client.target(UriBuilder.fromPath(System.getProperty("slack.api.postMessage")).build());
 
 	public Response slackMessagePost(String text) {
 

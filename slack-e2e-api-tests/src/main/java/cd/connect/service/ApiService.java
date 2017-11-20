@@ -10,9 +10,9 @@ import javax.ws.rs.client.WebTarget;
 
 public class ApiService {
 
-	private Client client = ClientBuilder.newClient(new ClientConfig());
-	private WebTarget webTarget = client.target(System.getProperty("sentiment.analyser.api"));
-	private WebTarget target = client.target(System.getProperty("services.mock.api"));
+	private final Client client = ClientBuilder.newClient(new ClientConfig());
+	private final WebTarget webTarget = client.target(System.getProperty("sentiment.analyser.api"));
+	private final WebTarget target = client.target(System.getProperty("services.mock.api"));
 
 	public MessagesService messagesApi() {
 		return WebResourceFactory.newResource(MessagesService.class, target);

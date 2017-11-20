@@ -1,10 +1,7 @@
 package cd.connect.samples.slackapp.rest;
 
-import cd.connect.samples.slackapp.api.Channel;
-import cd.connect.samples.slackapp.api.SentimentScoreService;
-import cd.connect.samples.slackapp.api.SentimentService;
-import cd.connect.samples.slackapp.api.Sentimentsummary;
-import cd.connect.samples.slackapp.api.SlackMessages;
+import cd.connect.samples.slackapp.api.*;
+import cd.connect.samples.slackapp.api.Sentiments;
 import cd.connect.samples.slackapp.dao.SentimentDao;
 import cd.connect.samples.slackapp.model.SlackMessage;
 import org.slf4j.Logger;
@@ -28,9 +25,9 @@ public class SentimentResource implements SentimentService{
 	SentimentScoreService sentimentScoreService;
 
     @Override
-    public Sentimentsummary gETSentiment() {
+    public Sentiments gETSentiment() {
 
-        Sentimentsummary sentimentsummary = new Sentimentsummary();
+        Sentiments sentiments = new Sentiments();
         ArrayList<Channel> channels = new ArrayList<>();
         sentimentDao.getSentiment().entrySet().forEach(stringListEntry -> {
             Channel e = new Channel();
@@ -43,8 +40,8 @@ public class SentimentResource implements SentimentService{
             channels.add(e);
 
         });
-        sentimentsummary.setChannels(channels);
-        return sentimentsummary;
+        sentiments.setChannels(channels);
+        return sentiments;
     }
 
 	@Override
