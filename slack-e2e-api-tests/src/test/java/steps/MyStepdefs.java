@@ -126,14 +126,14 @@ public class MyStepdefs {
 	}
 
 	@Then("^the sentiment count of slack sentiment analyser api should be (.*)$")
-	public void sentimentCountDisplayedAs(BigInteger happyOrSadCount) throws Throwable {
+	public void sentimentCountDisplayedAs(BigInteger positiveNegativeOrNeutralCount) throws Throwable {
 
-		assertThat(getCurrentSentimentCount().toBigInteger()).isEqualTo(happyOrSadCount);
+		assertThat(getCurrentSentimentCount().toBigInteger()).isEqualTo(positiveNegativeOrNeutralCount);
 
 	}
 
 	@And("^another (.*) is sent to a slack channel$")
-	public void VeryHappyMessageIsSent(String text) throws Throwable {
+	public void positiveMessageIsSent(String text) throws Throwable {
 
 		slackList = slackApiHelper.slackMessagePost(text);
 	}
