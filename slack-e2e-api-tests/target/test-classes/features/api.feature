@@ -1,4 +1,3 @@
-
 Feature: Testing listener service
 	AS a listener service that can monitor a given slack channel
 	I WANT to be able to extract events from that channel
@@ -15,10 +14,8 @@ Feature: Testing listener service
 	Then I should get a list of messages
 
 
-  Scenario Outline: Get messages sent through slack channel
-	Given a <message> is sent to a slack channel
+  Scenario: Get messages sent through slack channel
+	Given a message is sent to a slack channel
+	  | message              |
+	  | It is nice and sunny |
 	Then a valid response is received
-
-	Examples:
-	  | message                   |
-	  | Connect Slack API Testing |

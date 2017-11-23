@@ -75,7 +75,7 @@
 					<filtering>false</filtering>
 					<tiles>
 						<tile>cd.connect.tiles:tile-java:[1.1, 2)</tile>
-						<tile>cd.connect.tiles:tile-runnable:1.1-SNAPSHOT</tile>
+						<tile>cd.connect.tiles:tile-runnable:[1.1,2)</tile>
 					</tiles>
 				</configuration>
 			</plugin>
