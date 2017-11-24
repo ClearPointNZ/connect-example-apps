@@ -61,13 +61,30 @@
 		"channel": {
 		  "type": "string"
 		},
-		"messageCount": {
-		  "type": "number"
+		"hourlySentiments": {
+		  "type": "array",
+		  "items": {
+			"$ref": "#/definitions/hourlySentiment"
+		  }
+		}
+	  }
+	},
+	"hourlySentiment": {
+	  "title": "Hourly Sentiment",
+	  "type": "object",
+	  "properties": {
+		"hour": {
+		  "type": "integer"
+		},
+		"totalMessages": {
+		  "type": "integer"
 		},
 		"sentiment": {
-		  "type": "number"
+		  "type": "number",
+		  "format": "double"
 		}
 	  }
 	}
   }
 }
+
