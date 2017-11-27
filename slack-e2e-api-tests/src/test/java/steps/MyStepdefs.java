@@ -1,11 +1,10 @@
 package steps;
 
-import cd.connect.samples.slackapp.api.Channel;
+import cd.connect.samples.slackapp.api.HourlySentiment;
 import cd.connect.samples.slackapp.api.Messagelist;
-import cd.connect.samples.slackapp.api.Sentiments;
+import cd.connect.samples.slackapp.api.Sentimentsummary;
 import cd.connect.service.ApiService;
 import cucumber.api.DataTable;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -13,7 +12,6 @@ import gherkin.formatter.model.DataTableRow;
 import support.SlackApiHelper;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -23,40 +21,27 @@ public class MyStepdefs {
 	private SlackApiHelper slackApiHelper;
 	private Messagelist messagelist;
 	private Response slackList;
-	private Sentiments sentimentSummary;
-	private BigDecimal previousCount = new BigDecimal(0);
+	private Sentimentsummary sentimentSummary;
+	private Integer previousCount;
 
+	private Integer getCurrentMessageCount() {
 
-	private BigDecimal getCurrentMessageCount() {
-
-		sentimentSummary = apiService.sentimentApi().gETSentiment();
-
-		List<BigDecimal> messageCount = sentimentSummary.getChannels().stream()
-				.filter(str -> str.getChannel().equalsIgnoreCase("connect-testing"))
-				.map(Channel::getMessageCount)
+		List<Integer> messageCount = sentimentSummary.getChannels().get(0).getHourlySentiments().stream()
+				.map(HourlySentiment::getTotalMessages)
 				.collect(Collectors.toList());
-		System.out.println("message count is :" + messageCount);
-		if (messageCount.isEmpty()) {
-			return BigDecimal.valueOf(0);
-		}
+
 		return messageCount.get(0);
 
 	}
 
+	private Double getCurrentSentimentCount() {
 
-	private BigDecimal getCurrentSentimentCount() {
+		List<Double> sentimentCount = sentimentSummary.getChannels().get(0).getHourlySentiments().stream()
+				.map(HourlySentiment::getSentiment)
+				.collect(Collectors.toList());
 
-		BigDecimal sentimentCount = new BigDecimal(0);
+		return sentimentCount.get(0);
 
-		for (int i = 0; i < sentimentSummary.getChannels().size(); i++) {
-			String channelName = sentimentSummary.getChannels().get(i).getChannel();
-
-			if (channelName.contentEquals("connect-testing")) {
-				sentimentCount = sentimentSummary.getChannels().get(i).getSentiment();
-			}
-
-		}
-		return sentimentCount;
 	}
 
 	public MyStepdefs(ApiService apiService, SlackApiHelper slackApiHelper) {
@@ -107,11 +92,11 @@ public class MyStepdefs {
 	@Then("^the message count of slack sentiment analyser api should be increased by one$")
 	public void messageCountIncrease() throws Throwable {
 
-		assertThat(getCurrentMessageCount()).isEqualTo(previousCount.add(new BigDecimal(1)));
+		assertThat(getCurrentMessageCount()).isEqualTo(previousCount + 1);
 
 	}
 
-	@Given("^a message count is taken before sending a message to slack channel$")
+	@Given("^a message count is taken$")
 	public void previousMessageCount() throws Throwable {
 
 		previousCount = getCurrentMessageCount();
@@ -126,16 +111,10 @@ public class MyStepdefs {
 	}
 
 	@Then("^the sentiment count of slack sentiment analyser api should be (.*)$")
-	public void sentimentCountDisplayedAs(BigInteger positiveNegativeOrNeutralCount) throws Throwable {
+	public void sentimentCountDisplayedAs(Double positiveNegativeOrNeutralCount) throws Throwable {
 
-		assertThat(getCurrentSentimentCount().toBigInteger()).isEqualTo(positiveNegativeOrNeutralCount);
+		assertThat(getCurrentSentimentCount()).isEqualTo(positiveNegativeOrNeutralCount);
 
-	}
-
-	@And("^another (.*) is sent to a slack channel$")
-	public void positiveMessageIsSent(String text) throws Throwable {
-
-		slackList = slackApiHelper.slackMessagePost(text);
 	}
 
 	@Given("^I reset the sentiments counter$")
