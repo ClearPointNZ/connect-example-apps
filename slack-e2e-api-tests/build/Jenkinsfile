@@ -20,6 +20,7 @@ pipeline {
       cd slack-e2e-api-tests;
       cp src/test/resources/env.yml.example src/test/resources/env.yml;
     '''
+  }
 
   stage('Build e2e api tests') {
     sh '''
