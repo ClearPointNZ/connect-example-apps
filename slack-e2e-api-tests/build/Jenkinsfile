@@ -1,5 +1,8 @@
-pipeline {
-  agent any
+node("k8s-dind-worker") {
+
+  environment {
+      DOCKER_HOST = 'tcp://localhost:2375'
+  }
 
   stage('Clone repository') {
     checkout([
@@ -9,7 +12,7 @@ pipeline {
       extensions: [],
       submoduleCfg: [],
       userRemoteConfigs: [[
-        credentialsId: '088d3940-55c4-4d8c-85c5-007886b9555c',
+        credentialsId: 'jenkins-clearpoint',
         url: 'git@github.com:ClearPointNZ/connect-sample-apps.git'
       ]]
     ])
@@ -22,11 +25,25 @@ pipeline {
     '''
   }
 
-  stage('Build e2e api tests') {
-    sh '''
-      cd slack-e2e-api-tests;
-      mvn clean install -DskipTests;
-    '''
+
+  stage('Build and push artifact') {
+    withCredentials([[
+        $class          : 'UsernamePasswordMultiBinding',
+        credentialsId   : 'nexus-credentials',
+        usernameVariable: 'NEXUS_USR',
+        passwordVariable: 'NEXUS_PSW'
+    ]]) {
+        sh 'printenv'
+        docker.withServer('tcp://localhost:2375') {
+            docker.image('ikhripunov/connect-maven:latest').withRun('-v "$PWD":/usr/src/mymaven -w /usr/src/mymaven') {
+                docker.image('ikhripunov/connect-maven:latest').inside() {
+                    sh 'printenv'
+                    sh 'cp /usr/share/maven/ref/settings.xml ~/.m2/settings.xml'
+                    sh 'mvn clean deploy'
+                }
+            }
+        }
+    }
   }
 
   stage('Build image') {
