@@ -33,13 +33,11 @@ node("k8s-dind-worker") {
         usernameVariable: 'NEXUS_USR',
         passwordVariable: 'NEXUS_PSW'
     ]]) {
-        sh 'printenv'
-        docker.withServer('tcp://localhost:2375') {
+        docker.withServer(DOCKER_HOST) {
             docker.image('ikhripunov/connect-maven:latest').withRun('-v "$PWD":/usr/src/mymaven -w /usr/src/mymaven') {
                 docker.image('ikhripunov/connect-maven:latest').inside() {
-                    sh 'printenv'
                     sh 'cp /usr/share/maven/ref/settings.xml ~/.m2/settings.xml'
-                    sh 'mvn clean deploy'
+                    sh 'mvn -DaltDeploymentRepository=connect-nexus::default::https://nexus.connect.cd/repository/connect clean deploy'
                 }
             }
         }
