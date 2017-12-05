@@ -1,0 +1,42 @@
+pipeline {
+  agent any
+
+  stage('Clone repository') {
+    checkout([
+      $class: 'GitSCM',
+      branches: [[name: '*/master']],
+      doGenerateSubmoduleConfigurations: false,
+      extensions: [],
+      submoduleCfg: [],
+      userRemoteConfigs: [[
+        credentialsId: '088d3940-55c4-4d8c-85c5-007886b9555c',
+        url: 'git@github.com:ClearPointNZ/connect-sample-apps.git'
+      ]]
+    ])
+  }
+
+  stage('Configure env yaml file') {
+    sh '''
+      cd slack-e2e-api-tests;
+      cp src/test/resources/env.yml.example src/test/resources/env.yml;
+    '''
+
+  stage('Build e2e api tests') {
+    sh '''
+      cd slack-e2e-api-tests;
+      mvn clean install -DskipTests;
+    '''
+  }
+
+  stage('Build image') {
+    sh '''
+      echo 'build image if not already buit by Maven plugin'
+    '''
+  }
+
+  stage('Test image') {
+    app.withRun {
+      echo 'This is a test!'
+    }
+  }
+}
