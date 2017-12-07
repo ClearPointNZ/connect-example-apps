@@ -18,15 +18,7 @@ node("k8s-dind-worker") {
     ])
   }
 
-  stage('Configure env yaml file') {
-    sh '''
-      cd slack-e2e-api-tests;
-      cp src/test/resources/env.yml.example src/test/resources/env.yml;
-    '''
-  }
-
-
-  stage('Build and push artifact') {
+  stage('Build and push artifacts') {
     withCredentials([[
         $class          : 'UsernamePasswordMultiBinding',
         credentialsId   : 'nexus-credentials',
@@ -37,7 +29,7 @@ node("k8s-dind-worker") {
             docker.image('ikhripunov/connect-maven:latest').withRun('-v "$PWD":/usr/src/mymaven -w /usr/src/mymaven') {
                 docker.image('ikhripunov/connect-maven:latest').inside() {
                     sh 'cp /usr/share/maven/ref/settings.xml ~/.m2/settings.xml'
-                    sh 'mvn -DskipTests -DaltDeploymentRepository=connect-nexus::default::https://nexus.connect.cd/repository/connect clean deploy'
+                    sh 'mvn -DaltDeploymentRepository=connect-nexus::default::https://nexus.connect.cd/repository/connect clean deploy'
                 }
             }
         }
