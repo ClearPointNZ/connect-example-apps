@@ -4,35 +4,39 @@ pipeline {
       DOCKER_HOST = 'tcp://localhost:2375'
   }
 
-  stage('Clone repository') {
-    checkout([
-      $class: 'GitSCM',
-      branches: [[name: '*/master']],
-      doGenerateSubmoduleConfigurations: false,
-      extensions: [],
-      submoduleCfg: [],
-      userRemoteConfigs: [[
-        credentialsId: 'jenkins-clearpoint',
-        url: 'git@github.com:ClearPointNZ/connect-sample-apps.git'
-      ]]
-    ])
-  }
+  stages {
+    stage('Clone repository') {
+      steps {
+        checkout([
+          $class: 'GitSCM',
+          branches: [[name: '*/master']],
+          doGenerateSubmoduleConfigurations: false,
+          extensions: [],
+          submoduleCfg: [],
+          userRemoteConfigs: [[
+            credentialsId: 'jenkins-clearpoint',
+            url: 'git@github.com:ClearPointNZ/connect-sample-apps.git'
+          ]]
+        ])
+      }
+    }
 
-  stage('Build and push artifact') {
-    withCredentials([[
-        $class          : 'UsernamePasswordMultiBinding',
-        credentialsId   : 'nexus-credentials',
-        usernameVariable: 'NEXUS_USR',
-        passwordVariable: 'NEXUS_PSW'
-    ]]) {
-        docker.withServer(env.DOCKER_HOST) {
-            docker.image('ikhripunov/connect-maven:latest').withRun('-v "$PWD":/usr/src/mymaven -w /usr/src/mymaven') {
-                docker.image('ikhripunov/connect-maven:latest').inside() {
-                    sh 'cp /usr/share/maven/ref/settings.xml ~/.m2/settings.xml'
-                    sh 'mvn -DaltDeploymentRepository=connect-nexus::default::https://nexus.connect.cd/repository/connect clean deploy'
+    stage('Build and push artifact') {
+      steps {
+        withCredentials([[
+            $class          : 'UsernamePasswordMultiBinding',
+            credentialsId   : 'nexus-credentials',
+            usernameVariable: 'NEXUS_USR',
+            passwordVariable: 'NEXUS_PSW'
+        ]]) {
+            withDockerServer(uri: env.DOCKER_HOST) {
+                withDockerContainer(image: 'ikhripunov/connect-maven:latest', args: '-v "$PWD":/usr/src/mymaven -w /usr/src/mymaven') {
+                  sh 'cp /usr/share/maven/ref/settings.xml ~/.m2/settings.xml'
+                  sh 'mvn -DaltDeploymentRepository=connect-nexus::default::https://nexus.connect.cd/repository/connect clean deploy'
                 }
             }
         }
+      }
     }
   }
 }
