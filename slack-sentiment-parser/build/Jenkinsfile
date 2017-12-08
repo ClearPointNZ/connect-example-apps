@@ -1,4 +1,4 @@
-node("k8s-dind-worker") {
+pipeline {
 
   environment {
       DOCKER_HOST = 'tcp://localhost:2375'
@@ -25,7 +25,7 @@ node("k8s-dind-worker") {
         usernameVariable: 'NEXUS_USR',
         passwordVariable: 'NEXUS_PSW'
     ]]) {
-        docker.withServer(DOCKER_HOST) {
+        docker.withServer(env.DOCKER_HOST) {
             docker.image('ikhripunov/connect-maven:latest').withRun('-v "$PWD":/usr/src/mymaven -w /usr/src/mymaven') {
                 docker.image('ikhripunov/connect-maven:latest').inside() {
                     sh 'cp /usr/share/maven/ref/settings.xml ~/.m2/settings.xml'
