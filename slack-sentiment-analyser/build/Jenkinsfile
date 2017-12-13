@@ -51,9 +51,9 @@ pipeline {
 
     stage('Test image') {
       steps {
-        app.withRun {
+        sh '''
           echo 'This is a test!'
-        }
+        '''
       }
     }
   }
