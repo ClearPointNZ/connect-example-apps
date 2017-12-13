@@ -34,7 +34,7 @@ pipeline {
 
     stage('Build and push artifact') {
       steps {
-        withCredentials([[
+        withCredentials([
             $class          : 'UsernamePasswordMultiBinding',
             credentialsId   : 'nexus-credentials',
             usernameVariable: 'NEXUS_USR',
