@@ -39,7 +39,7 @@ pipeline {
             credentialsId   : 'nexus-credentials',
             usernameVariable: 'NEXUS_USR',
             passwordVariable: 'NEXUS_PSW'
-        ]]) {
+        ]) {
             withDockerServer(uri: env.DOCKER_HOST, credentialsId: "") {
                 withDockerContainer(image: 'ikhripunov/connect-maven:latest', args: '-v "$PWD":/usr/src/mymaven -w /usr/src/mymaven') {
                   sh 'cp /usr/share/maven/ref/settings.xml ~/.m2/settings.xml'
@@ -60,9 +60,9 @@ pipeline {
 
     stage('Test image') {
       steps {
-        app.withRun {
+        sh '''
           echo 'This is a test!'
-        }
+        '''
       }
     }
   }
