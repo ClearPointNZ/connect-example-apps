@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cd.connect.samples.slackapp</groupId>
+  <artifactId>composite-client</artifactId>
+  <version>1.1.1-SNAPSHOT</version>
+
+  <description>
+    common dependencies for all clients
+  </description>
+
+  <dependencies>
+    <!-- require for annotations -->
+    <dependency>
+      <groupId>cd.connect.composites.java</groupId>
+      <artifactId>connect-composite-jaxrs</artifactId>
+      <version>[1.1, 2)</version>
+    </dependency>
+
+    <!-- we need this only to compile, only a client would need it and they should include it themselves -->
+    <dependency>
+      <groupId>cd.connect.common</groupId>
+      <artifactId>connect-jersey-client</artifactId>
+      <version>[1.1, 2)</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cd.connect.servlet</groupId>
+      <artifactId>servlet-spring</artifactId>
+      <version>[1.6,2)</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+  </dependencies>
+</project>

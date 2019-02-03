@@ -1,84 +1,84 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "",
-        "title": "SlackMessages",
-        "description": "Slack Message Query API"
-    },
-    "host": "localhost:8080",
-    "basePath": "/slack-messages-api",
-    "schemes": [
-        "http"
-    ],
-    "paths": {
-        "/messages": {
-            "get": {
-                "operationId": "GET_messages",
-                "summary": "Get messages",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "fromDate",
-                        "in": "query",
-                        "type": "number"
-                    },
-                    {
-                        "name": "toDate",
-                        "in": "query",
-                        "type": "number"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/messagelist"
-                        },
-                        "examples": {
-                            "application/json": [
-                                {
-                                },
-                                {
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "messagelist": {
-            "title": "messageList",
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/message"
-            }
-        },
-        "message": {
-            "title": "message",
-            "type": "object",
-            "properties": {
-                "userId": {
-                    "type": "string"
+  "swagger": "2.0",
+  "info": {
+    "version": "",
+    "title": "SlackMessages",
+    "description": "Slack Message Query API"
+  },
+  "host": "localhost:8080",
+  "basePath": "/slack-messages-api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/messages": {
+      "get": {
+        "operationId": "GET_messages",
+        "summary": "Get messages",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/messagelist"
+            },
+            "examples": {
+              "application/json": [
+                {
                 },
-                "content": {
-                    "type": "string"
-                },
-                "timestamp": {
-                    "type": "number"
+                {
                 }
+              ]
             }
+          }
         }
+      }
     }
+  },
+  "definitions": {
+    "messagelist": {
+      "title": "messageList",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/message"
+      }
+    },
+    "message": {
+      "title": "message",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "number"
+        }
+      }
+    }
+  }
 }

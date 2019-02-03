@@ -5,31 +5,31 @@ import cd.connect.spring.servlet.ServletModule;
 {{#spring}}
   // plain resources
   {{#sortedTypes}}
-import {{packageName}}.{{name}};
+    import {{packageName}}.{{name}};
   {{/sortedTypes}}
 {{/spring}}
 {{#servlet}}
   // servlets that have WebServlet annotations
   {{#sortedTypes}}
-import {{packageName}}.{{name}};
+    import {{packageName}}.{{name}};
   {{/sortedTypes}}
 {{/servlet}}
 {{#filter}}
   // filters that have WebFilter annotations
   {{#sortedTypes}}
-import {{packageName}}.{{name}};
+    import {{packageName}}.{{name}};
   {{/sortedTypes}}
 {{/filter}}
 
 public class {{simpleName}} extends ServletModule {
-  public void register() {
-  {{#spring}}
-    register(Stream.of(
-    {{#sortedTypes}}
-      {{name}}.class{{^-last}}, {{/-last}}
-    {{/sortedTypes}}
-    ));
-  {{/spring}}
+public void register() {
+{{#spring}}
+  register(Stream.of(
+  {{#sortedTypes}}
+    {{name}}.class{{^-last}}, {{/-last}}
+  {{/sortedTypes}}
+  ));
+{{/spring}}
 {{#servlet}}
   // servlets that have WebServlet annotations
   {{#sortedTypes}}
@@ -43,5 +43,5 @@ public class {{simpleName}} extends ServletModule {
   {{/sortedTypes}}
 {{/filter}}
 
-  }
+}
 }

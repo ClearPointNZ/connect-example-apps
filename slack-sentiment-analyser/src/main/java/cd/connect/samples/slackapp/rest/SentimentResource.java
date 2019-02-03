@@ -14,30 +14,29 @@ import java.util.ArrayList;
 @Singleton
 public class SentimentResource implements SentimentService {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+  @Inject
+  SentimentDao sentimentDao;
+  private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Inject
-	SentimentDao sentimentDao;
+  @Override
+  public Sentimentsummary gETSentiment() {
 
-	@Override
-	public Sentimentsummary gETSentiment() {
+    Sentimentsummary sentimentsummary = new Sentimentsummary();
+    ArrayList<Channel> channels = new ArrayList<>();
+    sentimentDao.getSentiments().entrySet().forEach(item -> {
+      Channel channel = new Channel();
+      channel.setChannel(item.getKey());
+      channel.setHourlySentiments(item.getValue());
+      channels.add(channel);
 
-		Sentimentsummary sentimentsummary = new Sentimentsummary();
-		ArrayList<Channel> channels = new ArrayList<>();
-		sentimentDao.getSentiments().entrySet().forEach(item -> {
-			Channel channel = new Channel();
-			channel.setChannel(item.getKey());
-			channel.setHourlySentiments(item.getValue());
-			channels.add(channel);
+    });
+    sentimentsummary.setChannels(channels);
+    return sentimentsummary;
+  }
 
-		});
-		sentimentsummary.setChannels(channels);
-		return sentimentsummary;
-	}
-
-	@Override
-	public String deleteSentiments() {
-		sentimentDao.deleteSentiments();
-		return "OK";
-	}
+  @Override
+  public String deleteSentiments() {
+    sentimentDao.deleteSentiments();
+    return "OK";
+  }
 }

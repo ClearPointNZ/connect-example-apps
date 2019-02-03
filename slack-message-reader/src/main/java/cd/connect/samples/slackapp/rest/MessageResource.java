@@ -4,14 +4,13 @@ import cd.connect.samples.slackapp.api.Messagelist;
 import cd.connect.samples.slackapp.api.MessagesService;
 
 import javax.inject.Singleton;
-import javax.ws.rs.NotFoundException;
 import java.math.BigDecimal;
 
 @Singleton
-public class MessageResource implements MessagesService{
+public class MessageResource implements MessagesService {
 
-    @Override
-    public Messagelist gETMessages(String userId, BigDecimal fromDate, BigDecimal toDate) {
-        return new Messagelist();
-    }
+  @Override
+  public Messagelist gETMessages(String userId, BigDecimal fromDate, BigDecimal toDate) {
+    return new Messagelist();
+  }
 }

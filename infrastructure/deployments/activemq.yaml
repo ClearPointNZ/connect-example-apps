@@ -4,9 +4,9 @@ metadata:
   name: activemq
 spec:
   ports:
-  - port: 61616
-    protocol: TCP
-    targetPort: 61616
+    - port: 61616
+      protocol: TCP
+      targetPort: 61616
   selector:
     app: activemq
   type: NodePort
@@ -23,16 +23,16 @@ spec:
         app: activemq
     spec:
       containers:
-      - name: activemq
-        image: webcenter/activemq
-        ports:
-        - containerPort: 8161
-        - containerPort: 61616
-        - containerPort: 61613
-        resources:
-          limits:
-            cpu: "0.25"
-            memory: 256Mi
-          requests:
-            cpu: 250m
-            memory: 128Mi
+        - name: activemq
+          image: webcenter/activemq
+          ports:
+            - containerPort: 8161
+            - containerPort: 61616
+            - containerPort: 61613
+          resources:
+            limits:
+              cpu: "0.25"
+              memory: 256Mi
+            requests:
+              cpu: 250m
+              memory: 128Mi

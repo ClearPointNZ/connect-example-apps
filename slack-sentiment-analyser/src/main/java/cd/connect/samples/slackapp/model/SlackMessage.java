@@ -2,18 +2,18 @@ package cd.connect.samples.slackapp.model;
 
 public class SlackMessage {
 
-    String messageContent;
-    Channel channel;
-    Sender sender;
+  String messageContent;
+  Channel channel;
+  Sender sender;
 
-    private SlackMessage() {
-    }
+  private SlackMessage() {
+  }
 
-    public Channel getChannel() {
-        return channel;
-    }
+  public Channel getChannel() {
+    return channel;
+  }
 
-	public String getMessageContent() {
-		return messageContent;
-	}
+  public String getMessageContent() {
+    return messageContent;
+  }
 }

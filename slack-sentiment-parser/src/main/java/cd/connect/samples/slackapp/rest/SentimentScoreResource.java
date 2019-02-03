@@ -12,24 +12,23 @@ import javax.inject.Singleton;
 @Singleton
 public class SentimentScoreResource implements cd.connect.samples.slackapp.api.SentimentScoreService {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+  @Inject
+  SentimentScoreService sentimentScoreService;
+  private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Inject
-	SentimentScoreService sentimentScoreService;
+  @Override
+  public SentimentScore pOSTSentimentScore(SlackMessages messages) {
 
-	@Override
-	public SentimentScore pOSTSentimentScore(SlackMessages messages) {
+    SentimentScore sentimentScore = new SentimentScore();
 
-		SentimentScore sentimentScore = new SentimentScore();
+    try {
+      sentimentScore.setScore(sentimentScoreService.getSentimentScore(messages));
+    } catch (Exception ignore) {
+      log.error("Failed to get sentiment score for slack messages: " + ignore.getMessage(), ignore);
+    }
 
-		try {
-			sentimentScore.setScore(sentimentScoreService.getSentimentScore(messages));
-		} catch (Exception ignore) {
-			log.error("Failed to get sentiment score for slack messages: " + ignore.getMessage(), ignore);
-		}
+    return sentimentScore;
 
-		return sentimentScore;
-
-	}
+  }
 
 }

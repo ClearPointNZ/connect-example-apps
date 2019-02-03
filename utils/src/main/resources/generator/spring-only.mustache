@@ -3,10 +3,10 @@ package {{packageName}};
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 {{#spring}}
-	// plain resources
-	{{#sortedTypes}}
-		import {{packageName}}.{{name}};
-	{{/sortedTypes}}
+  // plain resources
+  {{#sortedTypes}}
+    import {{packageName}}.{{name}};
+  {{/sortedTypes}}
 {{/spring}}
 
 @Configuration

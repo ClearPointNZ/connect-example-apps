@@ -1,9 +1,9 @@
 package cd.connect.samples.slackapp.model;
 
 public class Channel {
-    String name;
+  String name;
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 }

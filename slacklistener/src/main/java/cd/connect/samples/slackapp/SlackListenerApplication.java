@@ -9,13 +9,13 @@ import java.io.IOException;
 
 public class SlackListenerApplication {
 
-    public static void main(String[] args) throws IOException, JMSException {
+  public static void main(String[] args) throws IOException, JMSException {
 
-        System.out.println("starting slack channel listener....");
-        new BatheTimeWatcher().startWatching();
-		String authToken = System.getenv("authToken");
-		SlackSession session = SlackSessionFactory.createWebSocketSlackSession(authToken);
-        session.addMessagePostedListener(new MessageListener());
-        session.connect();
-    }
+    System.out.println("starting slack channel listener....");
+    new BatheTimeWatcher().startWatching();
+    String authToken = System.getenv("authToken");
+    SlackSession session = SlackSessionFactory.createWebSocketSlackSession(authToken);
+    session.addMessagePostedListener(new MessageListener());
+    session.connect();
+  }
 }

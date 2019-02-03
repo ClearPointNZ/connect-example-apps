@@ -6,8 +6,8 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
-  - port: 8090
-    targetPort: 8090
+    - port: 8090
+      targetPort: 8090
   selector:
     app: slack-sentiment-parser
   type: LoadBalancer
@@ -25,40 +25,40 @@ spec:
         app: slack-sentiment-parser
     spec:
       containers:
-      - name: slacksentimentparser
-        image: docker-registry.connect.cd/slacksentimentparser:latest
-        imagePullPolicy: Always
-        command:
-          - java
-          - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml
-          - -Xms128m
-          - -Xmx768m
-          - -jar
-          - /usr/share/slacksentimentparser/app.jar
-          - -P/etc/java-config/slack-sentiment-parser.properties
-        ports:
-        - containerPort: 8090
-          protocol: TCP
-        resources:
-          limits:
-            cpu: "0.25"
-            memory: 1Gi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-        volumeMounts:
-        - mountPath: /etc/java-config
-          name: java-config
-        - mountPath: /etc/logs-config
-          name: logs-config
+        - name: slacksentimentparser
+          image: docker-registry.connect.cd/slacksentimentparser:latest
+          imagePullPolicy: Always
+          command:
+            - java
+            - -Dlog4j.configurationFile=/etc/logs-config/log4j2.xml
+            - -Xms128m
+            - -Xmx768m
+            - -jar
+            - /usr/share/slacksentimentparser/app.jar
+            - -P/etc/java-config/slack-sentiment-parser.properties
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "0.25"
+              memory: 1Gi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          volumeMounts:
+            - mountPath: /etc/java-config
+              name: java-config
+            - mountPath: /etc/logs-config
+              name: logs-config
       volumes:
-      - configMap:
-          defaultMode: 420
-          name: services-config
-        name: java-config
-      - configMap:
-          defaultMode: 420
+        - configMap:
+            defaultMode: 420
+            name: services-config
+          name: java-config
+        - configMap:
+            defaultMode: 420
+            name: logs-config
           name: logs-config
-        name: logs-config
       imagePullSecrets:
-      - name: regsecret
+        - name: regsecret

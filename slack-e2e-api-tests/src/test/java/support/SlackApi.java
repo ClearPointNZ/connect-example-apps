@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("")
 public interface SlackApi {
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	String postText(SlackText text);
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  String postText(SlackText text);
 }

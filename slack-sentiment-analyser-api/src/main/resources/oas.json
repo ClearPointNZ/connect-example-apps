@@ -1,90 +1,90 @@
 {
   "swagger": "2.0",
   "info": {
-	"version": "",
-	"title": "slack-sentiment-analyser",
-	"description": ""
+    "version": "",
+    "title": "slack-sentiment-analyser",
+    "description": ""
   },
   "host": "slack-sentiment-analyser",
   "basePath": "/data",
   "schemes": [
-	"http"
+    "http"
   ],
   "paths": {
-	"/sentiment": {
-	  "get": {
-		"operationId": "GET_sentiment",
-		"summary": "get current sentiment",
-		"produces": [
-		  "application/json"
-		],
-		"responses": {
-		  "200": {
-			"description": "",
-			"schema": {
-			  "$ref": "#/definitions/sentimentsummary"
-			}
-		  }
-		}
-	  },
-	  "delete": {
-		"operationId": "delete_sentiments",
-		"summary": "delete sentiments",
-		"responses": {
-		  "204": {
-			"description": "The sentiments have been deleted successfully.",
-			"schema": {
-			  "type": "string"
-			}
-		  }
-		}
-	  }
-	}
+    "/sentiment": {
+      "get": {
+        "operationId": "GET_sentiment",
+        "summary": "get current sentiment",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/sentimentsummary"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "delete_sentiments",
+        "summary": "delete sentiments",
+        "responses": {
+          "204": {
+            "description": "The sentiments have been deleted successfully.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
   },
   "definitions": {
-	"sentimentsummary": {
-	  "title": "SentimentSummary",
-	  "type": "object",
-	  "properties": {
-		"channels": {
-		  "type": "array",
-		  "items": {
-			"$ref": "#/definitions/channel"
-		  }
-		}
-	  }
-	},
-	"channel": {
-	  "title": "Channel",
-	  "type": "object",
-	  "properties": {
-		"channel": {
-		  "type": "string"
-		},
-		"hourlySentiments": {
-		  "type": "array",
-		  "items": {
-			"$ref": "#/definitions/hourlySentiment"
-		  }
-		}
-	  }
-	},
-	"hourlySentiment": {
-	  "title": "Hourly Sentiment",
-	  "type": "object",
-	  "properties": {
-		"hour": {
-		  "type": "integer"
-		},
-		"totalMessages": {
-		  "type": "integer"
-		},
-		"sentiment": {
-		  "type": "number",
-		  "format": "double"
-		}
-	  }
-	}
+    "sentimentsummary": {
+      "title": "SentimentSummary",
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/channel"
+          }
+        }
+      }
+    },
+    "channel": {
+      "title": "Channel",
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "string"
+        },
+        "hourlySentiments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/hourlySentiment"
+          }
+        }
+      }
+    },
+    "hourlySentiment": {
+      "title": "Hourly Sentiment",
+      "type": "object",
+      "properties": {
+        "hour": {
+          "type": "integer"
+        },
+        "totalMessages": {
+          "type": "integer"
+        },
+        "sentiment": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    }
   }
 }
 

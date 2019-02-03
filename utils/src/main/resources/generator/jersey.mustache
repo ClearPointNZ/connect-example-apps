@@ -5,39 +5,40 @@ import cd.connect.spring.jersey.JerseyModule;
 {{#jersey}}
   // plain resources
   {{#sortedTypes}}
-import {{packageName}}.{{name}};
+    import {{packageName}}.{{name}};
   {{/sortedTypes}}
 {{/jersey}}
 
 public class {{simpleName}} extends JerseyModule {
-  // register these with Spring
-  public void register() {
+// register these with Spring
+public void register() {
 {{#jersey}}
-    register(Stream.of(
+  register(Stream.of(
   {{#sortedTypes}}
     {{name}}.class{{^-last}}, {{/-last}}
   {{/sortedTypes}}
   ));
 {{/jersey}}
-  }
+}
 
-  // tell the JerseyApplication to extract these from the Spring Context and register them
-  // with this Jersey Application
-  protected Stream<Class<?>> registerResources() {
+// tell the JerseyApplication to extract these from the Spring Context and register them
+// with this Jersey Application
+protected Stream
+<Class<?>> registerResources() {
 {{#jersey}}
-    return Stream.of(
+  return Stream.of(
   {{#sortedTypes}}
     {{name}}.class{{^-last}}, {{/-last}}
   {{/sortedTypes}});
 {{/jersey}}
-  }
+}
 
-  // url for no cache f
-  protected String getUrlNoCachePattern() {
-    return "{{{baseUrl}}}";
-  }
+// url for no cache f
+protected String getUrlNoCachePattern() {
+return "{{{baseUrl}}}";
+}
 
-  protected String getUrlServletPrefix() {
-    return "{{{baseUrl}}}";
-  }
+protected String getUrlServletPrefix() {
+return "{{{baseUrl}}}";
+}
 }

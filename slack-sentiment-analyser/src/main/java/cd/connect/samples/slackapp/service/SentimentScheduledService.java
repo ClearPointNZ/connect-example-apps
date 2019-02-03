@@ -15,52 +15,50 @@ import java.util.concurrent.TimeUnit;
 
 public class SentimentScheduledService {
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+  private static ScheduledExecutorService service;
+  @Inject
+  SentimentDao sentimentDao;
+  private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	private static ScheduledExecutorService service;
+  @PostConfigured
+  public void init() {
 
-	@Inject
-	SentimentDao sentimentDao;
+    service = Executors.newSingleThreadScheduledExecutor();
 
-	@PostConfigured
-	public void init() {
+    service.scheduleAtFixedRate(
+      () -> sentimentDao.clearCurrentHourMessages()
+      , getInitialDelay(), 60 * 60 * 1000, TimeUnit.MILLISECONDS);
 
-		service = Executors.newSingleThreadScheduledExecutor();
+  }
 
-		service.scheduleAtFixedRate(
-				() -> sentimentDao.clearCurrentHourMessages()
-		, getInitialDelay(), 60 * 60 * 1000, TimeUnit.MILLISECONDS);
+  @PreDestroy
+  public void preDestroy() {
+    if (service != null) {
+      service.shutdown();
+    }
+  }
 
-	}
+  private long getInitialDelay() {
+    long delay = getNextRunTime() - Calendar.getInstance().getTimeInMillis();
+    log.info("Initial delay == {}", delay);
+    return delay > 0 ? delay : 0;
+  }
 
-	@PreDestroy
-	public void preDestroy() {
-		if (service != null) {
-			service.shutdown();
-		}
-	}
+  private long getNextRunTime() {
 
-	private long getInitialDelay() {
-		long delay = getNextRunTime() - Calendar.getInstance().getTimeInMillis();
-		log.info("Initial delay == {}", delay);
-		return delay > 0 ? delay : 0;
-	}
+    Calendar cal = Calendar.getInstance();
 
-	private long getNextRunTime() {
+    if (cal.get(Calendar.MINUTE) == 0 && cal.get(Calendar.SECOND) == 0) {
+      return cal.getTimeInMillis();
+    }
 
-		Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.HOUR_OF_DAY, 1);
+    cal.set(Calendar.MINUTE, 0);
+    cal.set(Calendar.SECOND, 0);
+    cal.set(Calendar.MILLISECOND, 0);
 
-		if (cal.get(Calendar.MINUTE) == 0 && cal.get(Calendar.SECOND) == 0) {
-			return cal.getTimeInMillis();
-		}
+    return cal.getTimeInMillis();
 
-		cal.add(Calendar.HOUR_OF_DAY, 1);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-
-		return cal.getTimeInMillis();
-
-	}
+  }
 
 }

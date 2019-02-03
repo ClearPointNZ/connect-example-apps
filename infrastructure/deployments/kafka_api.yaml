@@ -5,9 +5,9 @@ metadata:
   namespace: default
 spec:
   containers:
-  - name: kafka
-    image: solsson/kafka:0.11.0.0
-    command:
-      - sh
-      - -c
-      - "exec tail -f /dev/null"
+    - name: kafka
+      image: solsson/kafka:0.11.0.0
+      command:
+        - sh
+        - -c
+        - "exec tail -f /dev/null"

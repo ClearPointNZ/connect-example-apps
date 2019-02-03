@@ -14,32 +14,32 @@ import java.math.RoundingMode;
 public class SentimentScoreService {
 
 
-	/**
-	 * Uses Stanford Simple CoreNLP to calculate the average sentiment score for a list of slack messages with the following scales:
-	 *
-	 * (0) VERY_POSITIVE
-	 * (1) POSITIVE
-	 * (2) NEUTRAL
-	 * (3) NEGATIVE
-	 * (4) VERY_NEGATIVE
-	 *
-	 * @param messages - object contains a list of slack messages
-	 * @return average sentiment score
-	 */
-	public Double getSentimentScore(SlackMessages messages) {
+  /**
+   * Uses Stanford Simple CoreNLP to calculate the average sentiment score for a list of slack messages with the following scales:
+   * <p>
+   * (0) VERY_POSITIVE
+   * (1) POSITIVE
+   * (2) NEUTRAL
+   * (3) NEGATIVE
+   * (4) VERY_NEGATIVE
+   *
+   * @param messages - object contains a list of slack messages
+   * @return average sentiment score
+   */
+  public Double getSentimentScore(SlackMessages messages) {
 
-		if (messages != null && !CollectionUtils.isEmpty(messages.getMessages())) {
+    if (messages != null && !CollectionUtils.isEmpty(messages.getMessages())) {
 
-			Document doc = new Document(StringUtils.join(messages.getMessages()));
+      Document doc = new Document(StringUtils.join(messages.getMessages()));
 
-			double score = doc.sentences().stream().mapToInt(sentence -> sentence.sentiment().ordinal()).average().getAsDouble();
+      double score = doc.sentences().stream().mapToInt(sentence -> sentence.sentiment().ordinal()).average().getAsDouble();
 
-			return new BigDecimal(score).setScale(2, RoundingMode.HALF_UP).doubleValue();
+      return new BigDecimal(score).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
-		} else {
-			return new Double(SentimentClass.NEUTRAL.ordinal());
-		}
+    } else {
+      return new Double(SentimentClass.NEUTRAL.ordinal());
+    }
 
-	}
+  }
 
 }
