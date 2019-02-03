@@ -22,3 +22,14 @@ The main documentation for link:http://connect.cd[Connect] can be found at link:
 
 Any queries on the link:http://connect.cd[Connect] platform can be sent to: connect@clearpoint.co.nz
 
+TODO:
+
+- add back in docker generation for everything, surface the docker core id back to central location 
+- build kubernetes deployments for everything so people can do a mvn clean install and then under Docker run
+  a local Kubernetes install and it will all work
+- add a feature toggle service
+- cleanup the e2e test dependencies
+- ensure e2e tests run fully
+- engineer the pipeline to use the toolbox version
+
+                                                                                         
